@@ -1,5 +1,16 @@
+import os
+import subprocess
+
+try:
+    import numpy
+    import customtkinter
+except ImportError:
+    print("Installing missing dependencies...")
+    subprocess.check_call(["pip", "install", "-r", "requirements.txt"])
+
 import charPoly
 from customtkinter import *
+
 
 
 def init():
