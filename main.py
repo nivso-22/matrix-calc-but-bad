@@ -1,16 +1,5 @@
-import os
-import subprocess
-
-try:
-    import numpy
-    import customtkinter
-except ImportError:
-    print("Installing missing dependencies...")
-    subprocess.check_call(["pip", "install", "-r", "requirements.txt"])
-
 import charPoly
 from customtkinter import *
-
 
 
 def init():
@@ -38,7 +27,13 @@ def init():
 
 def change_operation(self):
     global selected_operation, calculate_button
-    funcs={"*":times, "+":plus, "-":minus, "<>":inner_product, "determinant":calc_det, "characteristic polynomial":calc_charPoly}
+    funcs={"*": times,
+           "+": plus,
+           "-": minus,
+           "<>": inner_product,
+           "determinant": calc_det,
+           "characteristic polynomial": calc_charPoly,
+           "inverse": inverse}
     init()
     calculate_button.configure(command=funcs[selected_operation.get()])
 
@@ -180,7 +175,9 @@ def calc_charPoly():
     ip_res_num = CTkLabel(ip_result, text=str(det))
     ip_res_num.pack()
 
-
+def inverse():
+    print("kill yourself")
+    # also need to actaully make it calculate the inverse instead of giving life advice
 
 root = CTk()
 #root.geometry("600x400")
@@ -190,7 +187,7 @@ matrix1.grid(row=0,column=0, padx=5, pady=80)
 mat1_size=3
 
 
-operations=["*", "+", "-", "<>", "determinant", "characteristic polynomial"]
+operations=["*", "+", "-", "<>", "determinant", "characteristic polynomial", "inverse"]
 selected_operation = StringVar(value="operation")
 
 dropdown = CTkComboBox(root, values=operations, variable=selected_operation, command = change_operation, font=("arial", 7*mat1_size))
