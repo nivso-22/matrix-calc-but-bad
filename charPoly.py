@@ -47,11 +47,6 @@ def characteristic_polynomial(matrix):
     return determinant(matrix_lambda)
 
 
-A = [
-    [1, 0, 0],
-    [0, 1, 0],
-    [0, 0, 2]
-]
+numpy.polynomial.set_default_printstyle("unicode")
 
-char_poly = characteristic_polynomial(A)
-print(char_poly)  # Should print λ^3 - 3λ^2 + 3λ - 1
+
