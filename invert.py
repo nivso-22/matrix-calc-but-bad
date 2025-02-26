@@ -1,4 +1,4 @@
-A = [[1, 0, 3], [2, 1, 1], [1, 1, 1]]
+A = [[1, 0, 0], [0, 1, 0], [0, 2, 2]]
 
 
 # the worst way to calculate that i assure you
@@ -39,9 +39,49 @@ def normalize_line(mat, l):
         mat[l] = [mat[l][i]/mat[l][l] for i in range(len(mat))]
     return mat
 
+def normalize_by(mat, l, i):
+    if i:
+        mat[l]=[mat[l][j]/i for j in range(len(mat[l]))]
+    return mat
+
+
+# now for the dumb shit you all came here for:
+def invert(mat):
+    inverse = [[1 if i ==j else 0 for j in range(len(mat))] for i in range(len(mat))]
+    for i in range(len(mat)):
+        for k in range(i):
+            for j in range(i):
+                if mat[i][j] and mat[k][j]:
+                    inverse = rank_line(inverse, k, i, (mat[i][j] / mat[k][j]))
+                    mat = rank_line(mat, k, i, (mat[i][j]/mat[k][j]))
+                    inverse = normalize_by(inverse, i, mat[i][i])
+                    mat = normalize_by(mat, i, mat[i][i])
+                    break
+
+    print_mat(inverse)
+    mat = transpose(mat)
+    inverse = transpose(inverse)
+    for i in range(len(mat)):
+        for k in range(i):
+            for j in range(i):
+                if mat[i][j] and mat[k][j]:
+                    inverse = rank_line(inverse, k, i, (mat[i][j] / mat[k][j]))
+                    mat = rank_line(mat, k, i, (mat[i][j] / mat[k][j]))
+                    inverse = normalize_by(inverse, i, mat[i][i])
+                    mat = normalize_by(mat, i, mat[i][i])
+                    break
+
+
+    return transpose(inverse)
+#the problem is this is too stupid to work yet not stupid enough
+# I have single-handedly created the W O R S T inversing algorithm
+# I should have been struck down by the heavens for merely attempting to do it like this
+
+
 #rank(A)
 
 # print(line_calc(A[1], A[2], 1))
 # canon_rank(A)
-# print_mat(rank(A))
+print_mat(A)
+print_mat(invert(A))
 # print_mat(transpose(rank(A)))
