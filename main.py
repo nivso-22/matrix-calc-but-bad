@@ -7,7 +7,7 @@ try:
 except ImportError:
     print("Installing missing dependencies...")
     subprocess.check_call(["pip", "install", "-r", "requirements.txt"])
-
+import instructionScreen
 import charPoly
 from customtkinter import *
 
@@ -190,6 +190,8 @@ def inverse():
     print("kill yourself")
     # also need to actaully make it calculate the inverse instead of giving life advice
 
+instructionScreen.screen()
+
 root = CTk()
 #root.geometry("600x400")
 
@@ -252,3 +254,4 @@ print(charPoly.characteristic_polynomial(read_matrix(matrixA)))
 
 
 root.mainloop()
+
